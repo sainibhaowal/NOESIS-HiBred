@@ -1,0 +1,13 @@
+[run]
+source = core
+omit =
+    core/encoding/test_encoding.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+    except ImportError:
+    if world_size > 1:
+    elif rank == 0:
+    if rank != 0:

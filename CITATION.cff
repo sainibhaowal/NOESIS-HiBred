@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use NOESIS-Σ in your research or application, please cite it as below."
+authors:
+  - name: "NOESIS-Σ Contributors"
+title: "NOESIS-Σ: An Operator-Split Continuous Dynamical Language & Multimodal Foundation Architecture"
+version: 0.1.0
+date-released: 2026-11-03
+url: "https://github.com/OWNER/REPO"  # TODO: set before publishing
+repository-code: "https://github.com/OWNER/REPO"  # TODO: set before publishing
+license: Apache-2.0
+keywords:
+  - foundation-model
+  - continuous-dynamics
+  - operator-splitting
+  - strang-splitting
+  - latent-attractor
+  - mixture-of-experts
+  - multi-head-latent-attention
+  - input-convex-neural-network
+

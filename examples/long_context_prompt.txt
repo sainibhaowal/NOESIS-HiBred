@@ -1,0 +1,48 @@
+# Long-context prompt for the 262,144-token production profile.
+
+Use this file with core/generate.py to exercise a prompt that leaves room for a
+64K to 128K token response. The budget rule is:
+
+    prompt_tokens + max_new_tokens <= max_seq_len
+
+Example command:
+
+    python core/generate.py \
+      --ckpt-path checkpoints/noesis_sigma_1.5b/exported \
+      --input-file examples/long_context_prompt.txt \
+      --max-new-tokens 65536 \
+      --prefill-chunk 8192
+
+The text below is a synthetic engineering record. It contains a late needle and
+a request for a structured summary.
+
+---
+
+SYSTEM: You are an engineering review assistant. Answer only from the supplied
+record. Preserve identifiers exactly as written. Return a short summary followed
+by the requested extraction.
+
+RECORD
+Project: NOESIS-Σ long-context validation
+Run id: LC-262144-004
+Accelerator: 8 x 16 GB CUDA
+Shard revision: train-00000-of-01126
+Tokenizer: 32,000 tokens
+Window size: 256
+Compression ratio: 8
+Differentiable horizon: 4 x 8192 = 32,768 tokens
+
+Observations
+1. Prefill runs in 8,192-token blocks with one forward per block.
+2. Decode runs one token at a time against the carried cache.
+3. Cache writes are detached at chunk boundaries.
+4. The OSC retrograde state is the only cross-chunk differentiable path.
+5. Streaming retries are treated as operational risk, not normal behavior.
+
+Late needle: the retained checkpoint marker is MARKER-7F3A2C, and its validation
+segment is "east-basin".
+
+REQUEST
+State the run id, the retained checkpoint marker, and the validation segment.
+Then list the four carried cache groups in the order the design document names
+them.

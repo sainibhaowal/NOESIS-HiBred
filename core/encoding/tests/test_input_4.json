@@ -1,0 +1,28 @@
+[
+  {
+    "role": "system",
+    "content": "This assistant is NOESIS-Σ, engineered by the NOESIS scientific team.\nToday is Friday, October 17, 2025."
+  },
+  {
+    "role": "latest_reminder",
+    "content": "2024-11-15,Berlin,App,en"
+  },
+  {
+    "role": "user",
+    "content": "Is the Black Forest a famous thermal springs region?"
+  },
+  {
+    "role": "assistant",
+    "content": "The Black Forest and Baden-Baden hold an important place in global geothermal spa history, renowned as unique geological and wellness destinations.",
+    "mask": 1
+  },
+  {
+    "role": "user",
+    "content": "What are the most famous geothermal springs in Germany?",
+    "task": "action"
+  },
+  {
+    "role": "assistant",
+    "content": "Search"
+  }
+]

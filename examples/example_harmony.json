@@ -1,0 +1,106 @@
+[
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Inspect the two attached images in order. Return exactly one JSON object, with no Markdown, in this shape: {\"first\":{\"object\":\"...\",\"visible_attributes\":[\"...\"],\"confidence\":0.0},\"second\":{\"object\":\"...\",\"visible_attributes\":[\"...\"],\"confidence\":0.0},\"edible_parts\":{\"first\":\"...\",\"second\":\"...\"}}. Use only visible evidence, keep confidence between 0 and 1, and state the plant part typically eaten for each image. First image: "
+          },
+          {
+            "type": "image_url",
+            "image_url": {
+              "url": "examples/images/carrots.jpeg"
+            }
+          },
+          {
+            "type": "text",
+            "text": " and second image "
+          },
+          {
+            "type": "image_url",
+            "image_url": {
+              "url": "examples/images/corn.jpeg"
+            }
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a careful production data assistant. Return valid JSON when requested and never invent missing fields."
+      },
+      {
+        "role": "user",
+        "content": "Extract this record into strict JSON with the keys customer_id, amount, currency, and status: Customer C-1042 paid EUR 1,249.50; the invoice is settled."
+      }
+    ]
+  },
+  {
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "get_weather",
+          "description": "Get the current weather forecast for a city. Use the user's explicit unit when provided; otherwise use celsius.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "An unambiguous city and country or region"
+              },
+              "unit": {
+                "type": "string",
+                "enum": ["celsius", "fahrenheit"]
+              }
+            },
+            "required": ["location"]
+          }
+        }
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-using assistant. Call get_weather when current weather is requested; do not fabricate live conditions."
+      },
+      {
+        "role": "user",
+        "content": "What is the current weather in Munich, Germany? Use celsius."
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant. Follow the latest applicable system instruction."
+      },
+      {
+        "role": "user",
+        "content": "Hello"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello. How can I help?"
+      },
+      {
+        "role": "system",
+        "content": "Mid-conversation instruction update: keep all responses concise, formal, and do not use Markdown tables."
+      },
+      {
+        "role": "user",
+        "content": "Summarize the response policy in one sentence."
+      }
+    ]
+  }
+]

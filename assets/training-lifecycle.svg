@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="920" viewBox="0 0 1600 920" role="img" aria-labelledby="title desc">
+  <title id="title">NOESIS Sigma distributed training lifecycle</title>
+  <desc id="desc">End-to-end pretraining flow from corpus streams to token batches, data parallel replicas, loss, gradient synchronization, optimizer step, checkpoint, and evaluation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#10172d"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#20d6c7"/><stop offset="1" stop-color="#8d72ff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".35"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#7f9ab5"/></marker>
+    <style>
+      .title{font:700 38px Inter,Arial,sans-serif;fill:#f5f8ff}.subtitle{font:400 18px Inter,Arial,sans-serif;fill:#a9b9ce}.section{font:700 18px Inter,Arial,sans-serif;fill:#dbe8fb;letter-spacing:1px}.label{font:700 20px Inter,Arial,sans-serif;fill:#f7fbff}.body{font:400 16px Inter,Arial,sans-serif;fill:#bfd0e4}.small{font:400 14px Inter,Arial,sans-serif;fill:#98abc2}.card{fill:#111f33;stroke:#29455f;stroke-width:2}.active{fill:#102c39;stroke:#20d6c7;stroke-width:2}.optional{fill:#251d42;stroke:#9b83ff;stroke-width:2}.line{stroke:#7f9ab5;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="920" fill="url(#bg)"/>
+  <rect x="58" y="54" width="10" height="78" rx="5" fill="url(#accent)"/>
+  <text x="94" y="88" class="title">NOESIS-Σ Training Lifecycle</text>
+  <text x="94" y="118" class="subtitle">The pretraining engine assigns different documents to data-parallel ranks, averages gradients, and writes one atomic checkpoint from rank 0.</text>
+
+  <rect x="58" y="178" width="302" height="576" rx="20" class="card" filter="url(#shadow)"/>
+  <text x="90" y="220" class="section">DATA SOURCES</text>
+  <rect x="86" y="258" width="246" height="84" rx="14" class="active"/><text x="110" y="292" class="label">Corpus stream mix</text><text x="110" y="318" class="body">Remote or local documents</text>
+  <rect x="86" y="376" width="246" height="116" rx="14" class="active"/><text x="110" y="414" class="label">Rank partitioning</text><text x="110" y="442" class="body">Rank r reads every</text><text x="110" y="466" class="body">world_size-th document</text>
+  <rect x="86" y="526" width="246" height="154" rx="14" class="active"/><text x="110" y="564" class="label">Tokenizer and batches</text><text x="110" y="592" class="body">BPE token IDs</text><text x="110" y="616" class="body">micro-batches [B, S]</text><text x="110" y="646" class="small">CLI controls B, S, and accumulation.</text>
+  <path d="M209 342 L209 370" class="line"/><path d="M209 492 L209 520" class="line"/>
+
+  <rect x="414" y="178" width="726" height="576" rx="20" class="card" filter="url(#shadow)"/>
+  <text x="446" y="220" class="section">DISTRIBUTED TRAINING STEP</text>
+  <rect x="450" y="258" width="260" height="150" rx="14" class="active"/><text x="474" y="296" class="label">Replica: rank 0</text><text x="474" y="324" class="body">Forward: logits + OSC metrics</text><text x="474" y="350" class="body">Backward: local gradients</text><text x="474" y="378" class="small">Different token batch</text>
+  <rect x="844" y="258" width="260" height="150" rx="14" class="active"/><text x="868" y="296" class="label">Replica: rank n</text><text x="868" y="324" class="body">Forward: logits + OSC metrics</text><text x="868" y="350" class="body">Backward: local gradients</text><text x="868" y="378" class="small">Different token batch</text>
+  <rect x="602" y="474" width="350" height="92" rx="14" class="active"/><text x="626" y="512" class="label">Gradient all-reduce</text><text x="626" y="540" class="body">Average gradients and metrics across ranks</text>
+  <rect x="602" y="616" width="350" height="84" rx="14" class="active"/><text x="626" y="650" class="label">Optimizer update</text><text x="626" y="678" class="body">Clip → AdamW → synchronized replicas</text>
+  <path d="M360 603 L444 603 L444 334" class="line"/><path d="M360 603 L838 603 L838 334" class="line"/><path d="M580 408 L715 468" class="line"/><path d="M974 408 L842 468" class="line"/><path d="M777 566 L777 610" class="line"/>
+
+  <rect x="1194" y="178" width="348" height="576" rx="20" class="card" filter="url(#shadow)"/>
+  <text x="1226" y="220" class="section">ARTIFACTS AND CHECKS</text>
+  <rect x="1222" y="258" width="292" height="118" rx="14" class="active"/><text x="1246" y="296" class="label">Rank 0 checkpoint</text><text x="1246" y="324" class="body">latest.pt, optimizer state,</text><text x="1246" y="348" class="body">configuration, history</text>
+  <rect x="1222" y="416" width="292" height="118" rx="14" class="optional"/><text x="1246" y="454" class="label">Validation and evaluation</text><text x="1246" y="482" class="body">Held-out loss, benchmarks,</text><text x="1246" y="506" class="body">and regression checks</text>
+  <rect x="1222" y="574" width="292" height="100" rx="14" class="optional"/><text x="1246" y="612" class="label">Downstream stages</text><text x="1246" y="640" class="body">SFT, inference, conversion</text>
+  <path d="M958 658 L1216 320" class="line"/><path d="M1368 376 L1368 410" class="line"/><path d="M1368 534 L1368 568" class="line"/>
+  <rect x="58" y="804" width="1484" height="62" rx="14" fill="#0d1a2c" stroke="#29455f" stroke-width="2"/>
+  <text x="88" y="842" class="body">Effective tokens per optimizer step = batch_size × (seq_len - 1) × grad_accum × world_size. Checkpoint ownership is intentionally single-writer.</text>
+</svg>

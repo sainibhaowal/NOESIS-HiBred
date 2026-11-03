@@ -1,0 +1,57 @@
+# Fast, deterministic checks that run before each commit.
+# The full Pytest suite remains a separate release/CI gate; see docs/Model_Run.md.
+minimum_pre_commit_version: "3.0.0"
+default_stages: [pre-commit]
+default_install_hook_types: [pre-commit, pre-push]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-ast
+        stages: [pre-commit]
+      - id: check-json
+        stages: [pre-commit]
+      - id: check-yaml
+        stages: [pre-commit]
+      - id: check-merge-conflict
+        stages: [pre-commit]
+      - id: detect-private-key
+        stages: [pre-commit]
+      - id: end-of-file-fixer
+        # These are byte-exact prompt fixtures; their deliberate lack of a
+        # final newline is asserted by the encoding tests.
+        exclude: ^core/encoding/tests/test_output_[1-5]\.txt$
+        stages: [pre-commit]
+      - id: trailing-whitespace
+        stages: [pre-commit]
+      - id: check-added-large-files
+        args: [--maxkb=4096]
+        stages: [pre-commit]
+
+  # Limit Ruff to correctness rules until the existing style backlog is
+  # deliberately addressed. This keeps a new hook from blocking every commit
+  # over historical formatting choices.
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.10
+    hooks:
+      - id: ruff
+        args: ["--select=E9,F63,F7,F82"]
+        stages: [pre-commit]
+
+  # This is intentionally a pre-push hook, not a pre-commit hook: it runs the
+  # full suite and coverage gates and therefore takes longer than static checks.
+  - repo: local
+    hooks:
+      - id: noesis-documentation-style
+        name: NOESIS documentation style
+        entry: .venv/bin/python scripts/check_docs_style.py
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: noesis-full-quality-gate
+        name: NOESIS full test, validation, and coverage gate
+        entry: .venv/bin/python scripts/quality_gate.py
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

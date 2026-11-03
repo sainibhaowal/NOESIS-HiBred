@@ -1,0 +1,39 @@
+{
+    "thinking_mode": "thinking",
+    "reasoning_effort": "max",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a helpful vision assistant."
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Please answer in order: What vegetable is shown in the first image"
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "examples/images/carrots.jpeg"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "and the second image"
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "examples/images/corn.jpeg"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "What parts of these plants are typically consumed?"
+                }
+            ]
+        }
+    ]
+}

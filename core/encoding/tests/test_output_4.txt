@@ -1,0 +1,2 @@
+<｜begin▁of▁sentence｜><｜System｜>This assistant is NOESIS-Σ, engineered by the NOESIS scientific team.
+Today is Friday, October 17, 2025.<｜latest_reminder｜>2024-11-15,Berlin,App,en<｜User｜>Is the Black Forest a famous thermal springs region?<｜Assistant｜></think>The Black Forest and Baden-Baden hold an important place in global geothermal spa history, renowned as unique geological and wellness destinations.<｜end▁of▁sentence｜><｜User｜>What are the most famous geothermal springs in Germany?<｜Assistant｜></think><｜action｜>Search<｜end▁of▁sentence｜>

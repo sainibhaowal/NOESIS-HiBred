@@ -1,0 +1,4 @@
+# Development-only tooling. Runtime/training dependencies live in
+# core/requirements.txt.
+pre-commit>=4.0,<5
+ruff==0.17.3

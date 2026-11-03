@@ -1,0 +1,154 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+.env/
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.pyre/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / editor
+.vscode/
+.idea/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+*.tmp
+*.tmp.*
+
+# Experiment tracking, caches, and local data downloads
+wandb/
+runs/
+lightning_logs/
+mlruns/
+events.out.tfevents.*
+hf_cache/
+.hf_cache/
+huggingface_cache/
+kaggle_outputs/
+.cache/
+
+# Misc
+pip-wheel-metadata/
+
+# Runtime artifacts (repo-local)
+project.wks
+
+# Specific runtime directories to ignore (keeping Config templates/rules versionable)
+Runtime/Logs/
+Runtime/Snapshots/
+Runtime/Jobs/
+Runtime/Backups/
+Runtime/Perception/
+Runtime/Cache/
+Runtime/Data/
+Runtime/LiveLoop/
+Runtime/Models/
+Runtime/Traces/
+Runtime/Training/
+Runtime/Config/keys/
+Runtime/Config/.env
+Runtime/Config/.env.docker
+
+# Ensure templates are tracked
+!Runtime/Config/.env.template
+!Runtime/Config/.env.example
+
+# Large local-only capsules
+model.neo/
+project.sim/
+
+# Checkpoints/bench outputs
+DocsArtifacts/
+
+.nx/installation
+.nx/cache
+.nx/workspace-data
+theme.md
+
+# Databases & Local SQLite
+*.db
+*.db-journal
+*.sqlite3
+sim.db
+
+# Local helper and scratch scripts
+restructure_paper.py
+check_latex_errors.py
+TASK_PROMPT_TEMPLATE (Copy).md
+
+# Excluded documentation and local guides
+Docs/
+Git_Guide.md
+GIT.md
+TASK_PROMPT_TEMPLATE.md
+TASK_PROMPT_TEMPLATE*.md
+
+# Ensure official lowercase docs directory is tracked
+!docs/
+!docs/**
+
+# Model training weights and checkpoint directories (do not commit binary weights)
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.gguf
+*.onnx
+*.tar.gz
+*.tar
+*.tgz
+*.zip
+*.bundle
+noesis_kaggle_bundle*
+training_history_*.json
+# Ignore trained weights/outputs, but keep the 32k tokenizer required by scripts/
+checkpoints/*
+!checkpoints/tokenizer_32k/
+
+# Credentials and local key material
+kaggle.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Private and research notes
+For Me/
+NOESIS-Sigma.md
+TRC_HEARD_ABOUT.md
+TRC_PROJECT_DESCRIPTION.md
+TRC_PROJECT_DESCRIPTION_SHORT.md
+# Quarantined legacy code
+Archive_Legacy/

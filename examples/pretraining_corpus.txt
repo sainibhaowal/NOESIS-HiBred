@@ -1,0 +1,79 @@
+<|User|>
+Solve the differential equation dx/dt = -2x with initial condition x(0) = 5.
+<|Assistant|>
+<|think|>
+We are given a first-order linear ordinary differential equation:
+dx/dt = -2x
+Separating variables yields dx / x = -2 dt.
+Integrating both sides: ln|x| = -2t + C.
+Exponentiating both sides: x(t) = C0 * exp(-2t).
+Applying the initial condition x(0) = 5 gives C0 = 5.
+Therefore, the unique solution is x(t) = 5 * exp(-2t).
+As t -> infinity, x(t) decays exponentially to 0, demonstrating asymptotic stability.
+<|end_of_thought|>
+The solution to the differential equation is x(t) = 5 * exp(-2t).
+
+<|User|>
+Explain the mathematical principle of operator splitting in Hamiltonian and dissipative systems.
+<|Assistant|>
+<|think|>
+Operator splitting divides a complex differential operator A + B into simpler, solvable sub-operators.
+For a continuous dynamical system governed by:
+dx/dt = K x - grad Phi(x) + B u
+The flow contains a conservative skew-symmetric component K (where K = -K^T, preserving phase-space volume and energy) and a dissipative gradient flow -grad Phi(x) (where Phi is a convex potential, driving states toward equilibrium).
+Using Strang splitting with time step dt:
+1. Advance conservative half-step: x1 = x + 0.5 * dt * K x.
+2. Advance dissipative full-step: x2 = x1 - dt * grad Phi(x2) + dt * B u.
+3. Advance conservative half-step: x3 = x2 + 0.5 * dt * K x2.
+This second-order symmetric composition maintains symplectic invariants while guaranteeing numerical contraction.
+<|end_of_thought|>
+Operator splitting decomposes the vector field into conservative (energy-preserving) and dissipative (energy-minimizing) vector fields, achieving second-order accuracy and unconditional stability.
+
+<|User|>
+Implement a fast binary search algorithm in Python with boundary checking.
+<|Assistant|>
+<|think|>
+Binary search finds a target value within a sorted array in O(log N) time complexity.
+We maintain two pointers: left and right.
+At each iteration, mid = left + (right - left) // 2.
+We compare arr[mid] with target and narrow the search interval.
+<|end_of_thought|>
+```python
+def binary_search(arr: list[int], target: int) -> int:
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+```
+
+<|User|>
+Calculate the eigenvalues of the 2x2 matrix A = [[3, 1], [1, 3]].
+<|Assistant|>
+<|think|>
+Given symmetric matrix A:
+det(A - lambda * I) = 0
+(3 - lambda)^2 - 1 = 0
+lambda^2 - 6*lambda + 8 = 0
+(lambda - 4)(lambda - 2) = 0
+The eigenvalues are lambda_1 = 4 and lambda_2 = 2.
+Both eigenvalues are strictly positive real numbers, confirming that A is positive-definite.
+<|end_of_thought|>
+The eigenvalues of the matrix A are lambda_1 = 4 and lambda_2 = 2.
+
+<|User|>
+What are the primary computational advantages of Multi-Head Latent Attention (MLA) over standard Multi-Head Attention?
+<|Assistant|>
+<|think|>
+Standard MHA caches full Key and Value projection matrices for every token across all heads:
+KV cache size = 2 * n_heads * head_dim * seq_len bytes per layer.
+MLA projects keys and values into a shared low-rank latent compressed vector d_c << n_heads * head_dim.
+During inference, only the compressed latent vector is cached.
+This reduces KV-cache memory bandwidth by 70% to 85%, enabling large-batch generation and ultra-long context windows.
+<|end_of_thought|>
+MLA drastically reduces the KV-cache memory footprint and memory bandwidth bottleneck by compressing keys and values into a shared low-rank latent space, enabling up to 80% memory savings.

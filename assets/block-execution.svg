@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="920" viewBox="0 0 1600 920" role="img" aria-labelledby="title desc">
+  <title id="title">NOESIS Sigma transformer block and OSC execution</title>
+  <desc id="desc">Internal data flow through a hyper-connection transformer block and the mid-network operator-split continuous block.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#10172d"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#20d6c7"/><stop offset="1" stop-color="#8d72ff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".35"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#7f9ab5"/></marker>
+    <style>
+      .title{font:700 38px Inter,Arial,sans-serif;fill:#f5f8ff}.subtitle{font:400 18px Inter,Arial,sans-serif;fill:#a9b9ce}.section{font:700 18px Inter,Arial,sans-serif;fill:#dbe8fb;letter-spacing:1px}.label{font:700 20px Inter,Arial,sans-serif;fill:#f7fbff}.body{font:400 16px Inter,Arial,sans-serif;fill:#bfd0e4}.small{font:400 14px Inter,Arial,sans-serif;fill:#98abc2}.card{fill:#111f33;stroke:#29455f;stroke-width:2}.active{fill:#102c39;stroke:#20d6c7;stroke-width:2}.osc{fill:#251d42;stroke:#9b83ff;stroke-width:2}.line{stroke:#7f9ab5;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#61788e;stroke-width:2;fill:none;stroke-dasharray:8 8}
+    </style>
+  </defs>
+  <rect width="1600" height="920" fill="url(#bg)"/>
+  <rect x="58" y="54" width="10" height="78" rx="5" fill="url(#accent)"/>
+  <text x="94" y="88" class="title">NOESIS-Σ Block Execution</text>
+  <text x="94" y="118" class="subtitle">Each backbone block preserves M Hyper-Connection residual streams while attention and MoE operate on a mixed representation.</text>
+
+  <rect x="58" y="178" width="1034" height="662" rx="20" class="card" filter="url(#shadow)"/>
+  <text x="92" y="220" class="section">REPEATED TRANSFORMER BLOCK</text>
+  <rect x="92" y="264" width="196" height="106" rx="14" class="active"/>
+  <text x="116" y="304" class="label">Residual state</text><text x="116" y="332" class="body">H [B, S, M, D]</text><text x="116" y="354" class="small">M = hc_mult</text>
+  <rect x="352" y="264" width="222" height="106" rx="14" class="active"/>
+  <text x="376" y="304" class="label">HC pre-mix</text><text x="376" y="332" class="body">hc_pre(H, pre_mix)</text><text x="376" y="354" class="small">Collapse M streams to x</text>
+  <rect x="638" y="244" width="244" height="146" rx="14" class="active"/>
+  <text x="662" y="284" class="label">Attention path</text><text x="662" y="312" class="body">RMSNorm → sparse MLA</text><text x="662" y="338" class="body">local window and optional</text><text x="662" y="362" class="body">compressed KV retrieval</text>
+  <rect x="638" y="500" width="244" height="146" rx="14" class="active"/>
+  <text x="662" y="540" class="label">MoE path</text><text x="662" y="568" class="body">RMSNorm → routing gate</text><text x="662" y="594" class="body">top-k routed experts</text><text x="662" y="618" class="body">+ shared expert</text>
+  <rect x="936" y="360" width="120" height="170" rx="14" class="active"/>
+  <text x="954" y="404" class="label">HC post</text><text x="954" y="432" class="small">State update</text><text x="954" y="454" class="small">after each</text><text x="954" y="476" class="small">sublayer</text><text x="954" y="502" class="small">next pre_mix</text>
+  <path d="M288 317 L346 317" class="line"/><path d="M574 317 L632 317" class="line"/><path d="M882 317 L930 400" class="line"/><path d="M936 488 L888 573" class="line"/><path d="M882 573 L930 490" class="line"/><path d="M1056 445 L1056 700 L190 700 L190 376" class="line"/>
+  <path d="M288 317 C314 317 318 245 352 245" class="dash"/><text x="304" y="236" class="small">dynamic Sinkhorn mix coefficients</text>
+  <rect x="92" y="746" width="964" height="58" rx="12" fill="#0d1a2c" stroke="#29455f" stroke-width="2"/>
+  <text x="116" y="781" class="body">A block applies attention and MoE sequentially. The residual state and mixing coefficients flow to the next block.</text>
+
+  <rect x="1140" y="178" width="402" height="662" rx="20" class="card" filter="url(#shadow)"/>
+  <text x="1174" y="220" class="section">MID-NETWORK OSC</text>
+  <rect x="1174" y="264" width="334" height="84" rx="14" class="osc"/>
+  <text x="1198" y="300" class="label">1. Collapse streams</text><text x="1198" y="326" class="body">s₀ = mean(H, dim = M)</text>
+  <rect x="1174" y="390" width="334" height="164" rx="14" class="osc"/>
+  <text x="1198" y="428" class="label">2. Relax latent state</text><text x="1198" y="456" class="body">½Δt K(s) → -Δt ∇Φ(s)</text><text x="1198" y="482" class="body">→ ½Δt K(s)</text><text x="1198" y="512" class="small">Optional retrograde controller and norm projection.</text>
+  <rect x="1174" y="598" width="334" height="108" rx="14" class="osc"/>
+  <text x="1198" y="636" class="label">3. Reinject delta</text><text x="1198" y="664" class="body">H ← H + (sT - s₀)</text><text x="1198" y="688" class="small">Continue with the upper blocks.</text>
+  <path d="M1341 348 L1341 384" class="line"/><path d="M1341 554 L1341 592" class="line"/>
+  <text x="1174" y="778" class="small">OSC runs after the lower stack.</text>
+  <text x="1174" y="804" class="small">Its enablement and parameters are configuration fields.</text>
+</svg>
