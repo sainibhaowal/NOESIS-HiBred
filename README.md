@@ -1,4 +1,4 @@
-# NOESIS-Σ (Sigma)
+# NOESIS-Σ (Sigma) - HiBred
 
 <p align="center">
   <img src="assets/logo.png" width="300" alt="NOESIS Sigma logo">
